@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">GymFitness</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="spinner_customer_sort">
+        <item name="one">Array Item One</item>
+        <item name="two">Array Item Two</item>
+        <item name="three">Array Item Three</item>
+    </string-array>
+
+</resources>

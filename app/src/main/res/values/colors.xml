@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF120600</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorMuted">#919191</color>
+    <color name="colorAccent">#FF5722</color>
+    <color name="colorAccentSelected">#ff794e</color>
+    <color name="colorFragmentBackground">#606060</color>
+    <color name="colorDanger">#ff0000</color>
+    <color name="colorDangerSelected">#ff4343</color>
+
+    <color name="colorTextbox">#595959</color>
+
+</resources>
