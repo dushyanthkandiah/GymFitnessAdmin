@@ -72,6 +72,10 @@ public class ServerBilling {
         return flag;
     }
 
+
+
+
+
     public int Save() {
         int result = 0;
         PreparedStatement st;
@@ -124,6 +128,8 @@ public class ServerBilling {
 
         return result;
     }
+
+
 
     public ArrayList<ClassBill> getList() {
         return list;

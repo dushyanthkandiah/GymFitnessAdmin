@@ -20,14 +20,18 @@ import com.example.abubakr.gymfitnessadmin.R;
 import java.util.ArrayList;
 
 import Dialogs.DialogCustomer;
+import Dialogs.DialogOrderedItem;
 import Fragments.FragmentCustomers;
 import Fragments.FragmentOrders;
 import GettersAndSetters.ClassBill;
 import GettersAndSetters.ClassCustomers;
+import GettersAndSetters.ClassItemCart;
 import OtherClasses.ShowDialog;
 import OtherClasses.Utils;
 import ServerLink.ServerBilling;
 import ServerLink.ServerCustomer;
+import ServerLink.ServerOrder;
+import ServerLink.ServerSupplements;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 @SuppressLint("NewApi")
@@ -59,10 +63,10 @@ public class OrderViewAdapter extends RecyclerView.Adapter<OrderViewAdapter.VHol
 
         holder.lblTotal.setText("" + data.get(position).getTotal());
 
-        if (data.get(position).getStatus() == 0){
+        if (data.get(position).getStatus() == 0) {
             holder.markBill.setVisibility(View.VISIBLE);
             holder.lblStatus.setText("Pending");
-        }else {
+        } else {
             holder.markBill.setVisibility(View.GONE);
             holder.lblStatus.setText("Sold");
         }
@@ -73,13 +77,12 @@ public class OrderViewAdapter extends RecyclerView.Adapter<OrderViewAdapter.VHol
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                ServerBilling serverBilling = new ServerBilling();
-                                serverBilling.getClassBill().setBillId(data.get(position).getBillId());
-                                if(serverBilling.MarkStatusPending() > 0){
-                                    fragmentOrders.onRefresh();
-                                }
+                                new UpdateDetails(data, position).execute();
+
+
+
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -94,6 +97,99 @@ public class OrderViewAdapter extends RecyclerView.Adapter<OrderViewAdapter.VHol
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
+
+        holder.cardClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogOrderedItem dialogOrderedItem = DialogOrderedItem.newInstance(fragmentOrders, data.get(position).getBillId(), data.get(position).getTotal());
+                dialogOrderedItem.show(fragmentOrders.getFragmentManager(), "dialog");
+            }
+        });
+
+    }
+
+    private class UpdateDetails extends AsyncTask<Void, Void, Void> {
+
+        ArrayList<ClassBill> data;
+        int position;
+        boolean flag = false;
+        String itemName = "";
+        ServerBilling serverBilling;
+
+        public UpdateDetails(ArrayList<ClassBill> data, int position) {
+
+            this.data = data;
+            this.position = position;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+             fragmentOrders.fragmentStore.homeActivity.showProgress();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            ServerOrder serverOrder = new ServerOrder();
+            serverOrder.getClassItemCart().setBillId(data.get(position).getBillId());
+
+            if (serverOrder.getAllRecords().equals("success")) {
+
+                ArrayList<ClassItemCart> classItemCarts = serverOrder.getList();
+
+
+
+
+                for (int i = 0; i < classItemCarts.size(); i++) {
+                    int supId = classItemCarts.get(i).getSupId();
+
+                    ServerSupplements serverSupplements = new ServerSupplements();
+                    serverSupplements.getClassSupplement().setStock(classItemCarts.get(i).getQuantity());
+                    serverSupplements.getClassSupplement().setId(supId);
+                    itemName = classItemCarts.get(i).getItemName();
+                    if (!serverSupplements.isStockValid().equals("success")) {
+                        flag = true;
+
+                        break;
+                    }
+                }
+
+                if (!flag) {
+                    for (int i = 0; i < classItemCarts.size(); i++) {
+                        int supId = classItemCarts.get(i).getSupId();
+
+                        ServerSupplements serverSupplements = new ServerSupplements();
+                        serverSupplements.getClassSupplement().setId(supId);
+                        serverSupplements.getClassSupplement().setStock(classItemCarts.get(i).getQuantity());
+
+                        if (serverSupplements.ReduceStock() > 0) {
+
+                        }
+                    }
+
+                    serverBilling = new ServerBilling();
+                    serverBilling.getClassBill().setBillId(data.get(position).getBillId());
+                    if (serverBilling.MarkStatusPending() > 0) {
+
+                    }
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            fragmentOrders.fragmentStore.homeActivity.hideProgress();
+            if (flag) {
+                ShowDialog.showToastLong(fragmentOrders.getActivity(), itemName + " is low in stock");
+            }else {
+                fragmentOrders.onRefresh();
+            }
+
+        }
 
     }
 
