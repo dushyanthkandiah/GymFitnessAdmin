@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:id="@+id/cardClick"
+    android:theme="@android:style/ThemeOverlay.Material.Dark"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="0dp"
+    tools:ignore="NewApi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/list_bg">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblSuplId"
+                android:layout_width="0dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_weight="2"
+                android:text="ID" />
+
+            <TextView
+                android:id="@+id/lblSupName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="11"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/lblStock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="4"
+                android:textAlignment="center"
+                android:text="Stock" />
+
+            <TextView
+                android:id="@+id/lblPrice"
+                android:layout_width="0dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="5"
+                android:text="Price" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                android:text="Type - " />
+
+            <TextView
+                android:id="@+id/lblType"
+                android:layout_width="match_parent"
+                android:textColor="@color/colorAccent"
+                android:layout_height="wrap_content"
+
+                android:text="Supplement" />
+
+        </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/divider"
+        android:layout_height="1dp"
+        android:background="@color/colorMuted"/>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

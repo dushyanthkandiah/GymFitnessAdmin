@@ -19,6 +19,46 @@ public class ServerSupplements {
         list = new ArrayList<>();
     }
 
+    public String getAllRecords(String searchInput, int limit) {
+        String flag;
+
+        String sql = "select * from supplements_and_products where CONCAT(`sup&prd_id`, name, type) like '%" + searchInput + "%' limit " + (limit * 20) + ", 20";
+
+//        System.out.println(sql + " ******");
+        if (db.getConn() != null) {
+
+            ResultSet rs = db.executeQuery(sql);
+
+            try {
+                flag = "nodata";
+                list = new ArrayList<>();
+
+                while (rs.next()) {
+                    flag = "success";
+//                    System.out.println(rs.getString("name") + "******");
+                    list.add(new ClassSupplement(
+                            rs.getInt("sup&prd_id"),
+                            rs.getString("name"),
+                            rs.getString("type"),
+                            rs.getDouble("stock"),
+                            rs.getDouble("price")
+                    ));
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                flag = "nodata";
+            }
+
+
+        } else {
+            flag = "failed";
+        }
+
+        return flag;
+    }
+
     public String getAllRecords(String searchInput) {
         String flag;
 
@@ -59,6 +99,66 @@ public class ServerSupplements {
         }
 
         return flag;
+    }
+
+    public int Save() {
+        int result = 0;
+        PreparedStatement st;
+
+        try {
+
+            st = db.executeUpdate("INSERT INTO supplements_and_products " +
+                    "(name, " +
+                    "stock, " +
+                    "price, " +
+                    "type) " +
+                    "VALUES(?, ?, ?, ?)");
+
+            st.setString(1, classSupplement.getName());
+            st.setString(2, String.valueOf(classSupplement.getStock()));
+            st.setString(3, String.valueOf(classSupplement.getPrice()));
+            st.setString(4, classSupplement.getType());
+//            System.out.println(st);
+
+            result = st.executeUpdate();
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public int Update() {
+        int result = 0;
+
+
+        PreparedStatement st = db.executeUpdate("UPDATE supplements_and_products SET " +
+                "name = ?, " +
+                "stock = ?, " +
+                "price = ?, " +
+                "type = ? " +
+                "WHERE `sup&prd_id` = ?");
+        try {
+
+            st.setString(1, classSupplement.getName());
+            st.setDouble(2, classSupplement.getStock());
+            st.setDouble(3, classSupplement.getPrice());
+            st.setString(4, classSupplement.getType());
+            st.setInt(5, classSupplement.getId());
+
+//            System.out.println(st + "**************");
+
+            result = st.executeUpdate();
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
     public String isStockValid() {

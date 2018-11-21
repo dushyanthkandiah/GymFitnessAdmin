@@ -127,7 +127,7 @@
             android:layout_gravity="center_vertical"
             android:textAlignment="textEnd"
             android:padding="15dp"
-            android:text="Total : 000.00"
+            android:text="Total : 0.00"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             tools:ignore="RtlCompat" />

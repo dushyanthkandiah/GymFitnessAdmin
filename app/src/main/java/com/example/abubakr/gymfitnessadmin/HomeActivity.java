@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import Dialogs.DialogExercise;
 import Dialogs.DialogNutrition;
+import Dialogs.DialogSupplements;
 import Dialogs.DialogTrainer;
 import Fragments.FragmentCustomers;
 import Fragments.FragmentHome;
@@ -197,6 +198,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             fragmentStore = new FragmentStore(fragmentManager, this);
             unCheck3Dots(false);
             lblFragmentTitle.setVisibility(View.VISIBLE);
+            lblFragmentTitle.setText("Orders");
             txtSearch.setVisibility(View.VISIBLE);
             ft.replace(R.id.content_frame, fragmentStore, "fragment");
             ft.commit();
@@ -226,6 +228,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (SessionData.currentFragment.equals("exercise")) {
             DialogExercise dialogExercise = DialogExercise.newInstance(fragmentHome.fragmentExercises, null, "add");
             dialogExercise.show(fragmentHome.fragmentExercises.getFragmentManager(), "dialog");
+        } else if (SessionData.currentFragment.equals("supplements")) {
+            DialogSupplements dialogSupplements = DialogSupplements.newInstance(fragmentStore.fragmentSupplements, null, "add");
+            dialogSupplements.show(fragmentStore.fragmentSupplements.getFragmentManager(), "dialog");
         }
 
     }

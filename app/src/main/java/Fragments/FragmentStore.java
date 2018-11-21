@@ -18,15 +18,18 @@ import com.example.abubakr.gymfitnessadmin.R;
 
 import Adapters.PagerAdapter;
 import OtherClasses.SessionData;
+import OtherClasses.ShowDialog;
 
 @SuppressLint("ValidFragment")
 public class FragmentStore extends Fragment {
 
     public HomeActivity homeActivity;
     private View iView;
-    public FragmentOrders fragmentOrders;
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
+
+    public FragmentOrders fragmentOrders;
+    public FragmentSupplements fragmentSupplements;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -41,11 +44,21 @@ public class FragmentStore extends Fragment {
                     pagerAdapter.addFragments(fragmentOrders, "Orders");
                     viewPager.setAdapter(pagerAdapter);
                     homeActivity.txtSearch.setVisibility(View.GONE);
-                    homeActivity.lblFragmentTitle.setText("Orders");
-                    homeActivity.unCheck3Dots(false);
+                    homeActivity.lblFragmentTitle.setVisibility(View.VISIBLE);
+                    homeActivity.imgAddBtn.setVisibility(View.GONE);
+
                     return true;
 
                 case R.id.navigation_supplements:
+                    fragmentSupplements = new FragmentSupplements(FragmentStore.this);
+                    SessionData.currentFragment = "supplements";
+                    pagerAdapter = new PagerAdapter(getFragmentManager());
+                    pagerAdapter.addFragments(fragmentSupplements, "Supplements");
+                    viewPager.setAdapter(pagerAdapter);
+                    homeActivity.txtSearch.setVisibility(View.VISIBLE);
+                    homeActivity.lblFragmentTitle.setVisibility(View.GONE);
+                    homeActivity.imgAddBtn.setVisibility(View.VISIBLE);
+
                     return true;
 
 
@@ -67,6 +80,7 @@ public class FragmentStore extends Fragment {
         viewPager = iView.findViewById(R.id.viewPager);
 
         fragmentOrders = new FragmentOrders(this);
+        fragmentSupplements = new FragmentSupplements(this);
 
         /*Opening default fragment*/
         SessionData.currentFragment = "orders";
@@ -84,11 +98,12 @@ public class FragmentStore extends Fragment {
 
     public void searchRecords(String inputStr) {
         fragmentOrders.inputStr = inputStr;
+        fragmentSupplements.inputStr = inputStr;
 
         if (SessionData.currentFragment.equals("orders")) {
             fragmentOrders.SearchData();
         } else if (SessionData.currentFragment.equals("supplements")) {
-            fragmentOrders.SearchData();
+            fragmentSupplements.SearchData();
         }
 
     }

@@ -79,4 +79,25 @@ public class Utils {
         spinner.setSelection(spinnerPos);
     }
 
+    public static void setSpinnerPositionWithoutSlash(Spinner spinner, String input) {
+        Adapter adapter = spinner.getAdapter();
+
+        int n = adapter.getCount();
+
+        ArrayList<String> items = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            items.add((String) adapter.getItem(i));
+        }
+
+        int spinnerPos = 0;
+        for (int i = 0; i < items.size(); i++) {
+            if (input.equals(items.get(i))) {
+                spinnerPos = i;
+                break;
+            }
+        }
+        spinner.setSelection(spinnerPos);
+    }
+
 }

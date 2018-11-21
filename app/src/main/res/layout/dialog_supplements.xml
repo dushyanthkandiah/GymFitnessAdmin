@@ -34,7 +34,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/lblExerciseId"
+            android:id="@+id/lblSupId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
@@ -70,10 +70,10 @@
                 android:theme="@style/TextLabel">
 
                 <EditText
-                    android:id="@+id/txtExercise"
+                    android:id="@+id/txtSupplementName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Exercise"
+                    android:hint="Item Name"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:nextFocusDown="@+id/txtPassword"
@@ -89,29 +89,29 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/txtSets"
+                    android:id="@+id/txtStock"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_select"
-                    android:hint="Sets"
-                    android:inputType="number"
+                    android:hint="Stock"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:padding="5dp"
+                    android:inputType="number"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorMuted"
                     android:textSize="16dp" />
 
                 <EditText
-                    android:id="@+id/txtTimes"
+                    android:id="@+id/txtPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_select"
-                    android:hint="Times"
-                    android:inputType="number"
+                    android:hint="Price"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:padding="5dp"
                     android:singleLine="true"
@@ -123,15 +123,25 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinnerSchdId"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/spinner_background_v2"
-                android:clickable="false"
+                android:layout_height="wrap_content"
+                android:text="Select the Item Type"
                 android:layout_marginTop="10dp"
-                android:ems="10"
-                tools:ignore="Deprecated" />
+                android:layout_marginBottom="3dp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <Spinner
+                android:id="@+id/spinnerSupType"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/spinner_background_v2"
+                android:clickable="true"
+                android:focusable="false"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorMuted"
+                android:textSize="12dp" />
 
 
             <Button
