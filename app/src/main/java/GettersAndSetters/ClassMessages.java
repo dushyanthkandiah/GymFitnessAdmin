@@ -3,14 +3,15 @@ package GettersAndSetters;
 public class ClassMessages {
 
     private int messageId, customerId;
-    private String message, dateTime, messageOwner;
+    private String message, dateTime, messageOwner, customerName;
+    private byte[] picture;
 
     public ClassMessages(int messageId, int customerId, String message, String dateTime, String messageOwner) {
         this.messageId = messageId;
         this.customerId = customerId;
-        this.message = message.replace("'", "''");
-        this.dateTime = dateTime.replace("'", "''");
-        this.messageOwner = messageOwner.replace("'", "''");
+        this.message = message;
+        this.dateTime = dateTime;
+        this.messageOwner = messageOwner;
     }
 
     public ClassMessages() {
@@ -37,7 +38,7 @@ public class ClassMessages {
     }
 
     public void setMessage(String message) {
-        this.message = message.replace("'", "''");
+        this.message = message;
     }
 
     public String getDateTime() {
@@ -54,5 +55,21 @@ public class ClassMessages {
 
     public void setMessageOwner(String messageOwner) {
         this.messageOwner = messageOwner.replace("'", "''");
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

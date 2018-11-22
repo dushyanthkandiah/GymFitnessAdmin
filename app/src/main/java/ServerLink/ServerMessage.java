@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import GettersAndSetters.ClassCustomers;
 import GettersAndSetters.ClassMessages;
 
 public class ServerMessage {
@@ -17,6 +18,56 @@ public class ServerMessage {
         db = new Database();
         classMessages = new ClassMessages();
         list = new ArrayList<>();
+    }
+
+    public String getAllRecords(String searchInput, int limit) {
+        String flag;
+        int maxLimit = 12;
+
+        String sql = "SELECT messages.msg_id, messages.cus_id, messages.message, messages.date_time, messages.message_owner, customers.name, customers.picture " +
+                "FROM messages inner join customers on messages.cus_id = customers.cus_id " +
+                "WHERE messages.msg_id IN ( " +
+                "SELECT MAX(messages.msg_id) " +
+                "FROM messages " +
+                "GROUP BY messages.cus_id " +
+                ") and customers.name like '%" + searchInput + "%' limit " + (limit * maxLimit) + ", " + maxLimit;
+
+//        System.out.println(sql + " *********************");
+        if (db.getConn() != null) {
+
+            ResultSet rs = db.executeQuery(sql);
+
+            try {
+                flag = "nodata";
+                list = new ArrayList<>();
+
+                while (rs.next()) {
+                    flag = "success";
+                    ClassMessages classMessages = new ClassMessages();
+                    classMessages.setMessageId(rs.getInt("msg_id"));
+                    classMessages.setCustomerId(rs.getInt("cus_id"));
+                    classMessages.setMessage(rs.getString("message"));
+                    classMessages.setDateTime(rs.getString("date_time"));
+                    classMessages.setMessageOwner(rs.getString("message_owner"));
+                    classMessages.setCustomerName(rs.getString("name"));
+                    classMessages.setPicture(rs.getBytes("picture"));
+
+                    list.add(classMessages);
+
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                flag = "nodata";
+            }
+
+
+        } else {
+            flag = "failed";
+        }
+
+        return flag;
     }
 
     public String getAllRecords(int limit) {

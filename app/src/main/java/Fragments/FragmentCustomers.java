@@ -71,7 +71,6 @@ public class FragmentCustomers extends Fragment implements SwipeRefreshLayout.On
         loadTrainer();
 
         list = new ArrayList<>();
-        serverTrainers = new ServerTrainers();
         customerViewAdapter = new CustomerViewAdapter(list, this);
         manager = new GridLayoutManager(getActivity(), 2);
         rcyView.setAdapter(customerViewAdapter);

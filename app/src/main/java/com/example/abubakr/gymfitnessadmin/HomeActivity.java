@@ -26,11 +26,14 @@ import Dialogs.DialogExercise;
 import Dialogs.DialogNutrition;
 import Dialogs.DialogSupplements;
 import Dialogs.DialogTrainer;
+import Fragments.FragmentCustomerSupport;
 import Fragments.FragmentCustomers;
 import Fragments.FragmentHome;
+import Fragments.FragmentMessageCustomer;
 import Fragments.FragmentStore;
 import GettersAndSetters.ClassSchedule;
 import OtherClasses.SessionData;
+import OtherClasses.ShowDialog;
 import ServerLink.ServerSchedule;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -44,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     FragmentCustomers fragmentCustomers;
     FragmentStore fragmentStore;
+    FragmentCustomerSupport fragmentCustomerSupport;
     private GifImageView progressBar;
     public TextView lblFragmentTitle;
 
@@ -77,14 +81,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            SessionData.currentMainFrag = "store";
-            fragmentStore = new FragmentStore(fragmentManager, this);
-            unCheck3Dots(false);
+            SessionData.currentMainFrag = "home";
+            fragmentHome = new FragmentHome(fragmentManager, this);
+            unCheck3Dots(true);
             lblFragmentTitle.setVisibility(View.GONE);
             txtSearch.setVisibility(View.VISIBLE);
-            ft.replace(R.id.content_frame, fragmentStore, "fragment");
+            ft.replace(R.id.content_frame, fragmentHome, "fragment");
             ft.commit();
-            imgAddBtn.setVisibility(View.GONE);
+            imgAddBtn.setVisibility(View.VISIBLE);
         }
 
         txtSearch.addTextChangedListener(new TextWatcher() {
@@ -102,6 +106,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     fragmentCustomers.SearchData();
                 } else if (SessionData.currentMainFrag.equals("store")) {
                     fragmentStore.searchRecords(txtSearch.getText().toString().trim().replace("'", "''"));
+                } else if (SessionData.currentMainFrag.equals("customerSupport")) {
+                    fragmentCustomerSupport.searchRecords(txtSearch.getText().toString().trim().replace("'", "''"));
                 }
             }
 
@@ -127,9 +133,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
+            if (SessionData.currentFragment.equals("messages"))
+                fragmentCustomerSupport.SwitchFragments("customer", 0, "", null);
+else
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,6 +213,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             lblFragmentTitle.setText("Orders");
             txtSearch.setVisibility(View.VISIBLE);
             ft.replace(R.id.content_frame, fragmentStore, "fragment");
+            ft.commit();
+            imgAddBtn.setVisibility(View.GONE);
+
+        } else if (id == R.id.nav_cus_support) {
+            SessionData.currentMainFrag = "customerSupport";
+            fragmentCustomerSupport = new FragmentCustomerSupport(fragmentManager, this);
+            unCheck3Dots(false);
+            lblFragmentTitle.setVisibility(View.GONE);
+            txtSearch.setVisibility(View.VISIBLE);
+            ft.replace(R.id.content_frame, fragmentCustomerSupport, "fragment");
             ft.commit();
             imgAddBtn.setVisibility(View.GONE);
 
