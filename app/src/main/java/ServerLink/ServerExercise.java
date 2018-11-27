@@ -15,12 +15,12 @@ public class ServerExercise {
     private ArrayList<ClassExercise> list;
 
     public ServerExercise() {
-        db = new Database();
         classExercise = new ClassExercise();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput, int limit) {
+        db = new Database();
         String flag;
 
         String sql = "select * from exercise where CONCAT(exc_id, name) like '%" + searchInput + "%' and shd_id = " + classExercise.getSchdId() + " limit " + (limit * 15) + ", 15";
@@ -65,6 +65,7 @@ public class ServerExercise {
 
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -94,6 +95,7 @@ public class ServerExercise {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
 
 

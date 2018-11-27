@@ -125,13 +125,13 @@ public class ScheduleViewAdapter extends RecyclerView.Adapter<ScheduleViewAdapte
         boolean result = false;
         int position;
 
-        public SaveDetails(int position) {
+        private SaveDetails(int position) {
             this.position = position;
         }
 
         @Override
         protected void onPreExecute() {
-
+            fragmentSchedule.fragmentHome.homeActivity.showProgress();
         }
 
         @Override
@@ -154,17 +154,17 @@ public class ScheduleViewAdapter extends RecyclerView.Adapter<ScheduleViewAdapte
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            fragmentSchedule.fragmentHome.homeActivity.hideProgress();
             if (isAdding.get(position) == 1) {
                 if (result) {
                     ShowDialog.showToast(fragmentSchedule.getActivity(), "Record Added Successfully");
-                    fragmentSchedule.onRefresh();
+                    fragmentSchedule.SearchData();
 
                 } else
                     ShowDialog.showToast(fragmentSchedule.getActivity(), "Error While Adding the Record");
             } else {
                 if (result) {
                     ShowDialog.showToast(fragmentSchedule.getActivity(), "Record Updated Successfully");
-                    fragmentSchedule.onRefresh();
                 } else
                     ShowDialog.showToast(fragmentSchedule.getActivity(), "Error While Updating the Record");
             }

@@ -15,12 +15,12 @@ public class ServerSchedule {
     private ArrayList<ClassSchedule> list;
 
     public ServerSchedule() {
-        db = new Database();
         classSchedule = new ClassSchedule();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput) {
+        db = new Database();
         String flag;
 
         String sql = "select * from schedule where CONCAT(shd_id, type) like '%" + searchInput + "%'";
@@ -58,6 +58,7 @@ public class ServerSchedule {
     }
 
     public String Search() {
+        db = new Database();
         String flag;
 
         String sql = "select * from schedule where shd_id = " + classSchedule.getSchdId();
@@ -90,6 +91,8 @@ public class ServerSchedule {
     }
 
     public int Save() {
+        db = new Database();
+
         int result = 0;
         PreparedStatement st;
 
@@ -115,8 +118,8 @@ public class ServerSchedule {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
-
 
         PreparedStatement st = db.executeUpdate("UPDATE schedule SET " +
                 "type = ?, " +
@@ -142,6 +145,7 @@ public class ServerSchedule {
     }
 
     public int Delete() {
+        db = new Database();
         int result = 0;
 
         PreparedStatement st = db.executeUpdate("Delete from schedule WHERE shd_id = ?");

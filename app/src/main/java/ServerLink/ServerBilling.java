@@ -17,12 +17,13 @@ public class ServerBilling {
     private int lastGeneratedBillId;
 
     public ServerBilling() {
-        db = new Database();
+
         list = new ArrayList<>();
         classBill = new ClassBill();
     }
 
     public String getAllRecords(String fromDate, String toDate, int limit, String orderBy) {
+        db = new Database();
         String flag;
         int maxLimit = 5;
 
@@ -77,6 +78,7 @@ public class ServerBilling {
 
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -108,6 +110,7 @@ public class ServerBilling {
     }
 
     public int MarkStatusPending() {
+        db = new Database();
         int result = 0;
 
         PreparedStatement st = db.executeUpdate("UPDATE bill SET " +

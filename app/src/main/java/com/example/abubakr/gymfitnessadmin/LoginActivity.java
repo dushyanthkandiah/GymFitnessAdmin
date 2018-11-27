@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import OtherClasses.OtherShortcuts;
 import OtherClasses.ShowDialog;
 import OtherClasses.Validation;
 import pl.droidsonroids.gif.GifImageView;
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            OtherShortcuts.hideKeyboard(LoginActivity.this);
             progressBar.setVisibility(View.VISIBLE);
         }
 

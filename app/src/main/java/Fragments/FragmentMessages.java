@@ -117,7 +117,7 @@ public class FragmentMessages extends Fragment {
                 if (isPageOnBottom)
                     loopThread();
 
-                handler.postDelayed(this, 3000);
+                handler.postDelayed(this, 1000);
 
             }
         };

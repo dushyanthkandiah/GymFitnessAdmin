@@ -15,12 +15,12 @@ public class ServerNutrition {
     private ArrayList<ClassNutritions> list;
 
     public ServerNutrition() {
-        db = new Database();
         classNutritions = new ClassNutritions();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput, int limit) {
+        db = new Database();
         String flag;
 
         String sql = "select * from nutrition where status = 'active' and CONCAT(nut_id, food, type) like '%" + searchInput + "%' and shd_id = " + classNutritions.getSchdId() + " limit " + (limit * 5) + ", 5";
@@ -65,6 +65,7 @@ public class ServerNutrition {
     }
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -94,8 +95,8 @@ public class ServerNutrition {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
-
 
         PreparedStatement st = db.executeUpdate("UPDATE nutrition SET " +
                 "food = ?, " +
@@ -125,6 +126,7 @@ public class ServerNutrition {
     }
 
     public int Delete() {
+        db = new Database();
         int result = 0;
 
         PreparedStatement st = db.executeUpdate("UPDATE nutrition SET " +

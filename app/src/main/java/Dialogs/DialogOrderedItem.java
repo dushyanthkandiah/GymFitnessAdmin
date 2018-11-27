@@ -111,11 +111,16 @@ private Double total;
             }
         });
 
-        new loadData().execute();
+
 
         return iView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        new loadData().execute();
+    }
 
     private class loadData extends AsyncTask<Void, Void, Void> {
         ServerOrder serverOrder = new ServerOrder();

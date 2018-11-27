@@ -16,13 +16,13 @@ public class ServerOrder {
     private ClassItemCart classItemCart;
 
     public ServerOrder() {
-        db = new Database();
         list = new ArrayList<>();
         classItemCart = new ClassItemCart();
     }
 
 
     public String getAllRecords() {
+        db = new Database();
         String flag;
 
         String sql = "select `order`.*, supplements_and_products.name from `order` inner join supplements_and_products on supplements_and_products.`sup&prd_id` = `order`.`sup&prd_id` " +

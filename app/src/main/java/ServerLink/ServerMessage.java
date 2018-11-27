@@ -15,12 +15,12 @@ public class ServerMessage {
     private ArrayList<ClassMessages> list;
 
     public ServerMessage() {
-        db = new Database();
         classMessages = new ClassMessages();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput, int limit) {
+        db = new Database();
         String flag;
         int maxLimit = 12;
 
@@ -30,7 +30,7 @@ public class ServerMessage {
                 "SELECT MAX(messages.msg_id) " +
                 "FROM messages " +
                 "GROUP BY messages.cus_id " +
-                ") and customers.name like '%" + searchInput + "%' limit " + (limit * maxLimit) + ", " + maxLimit;
+                ") and customers.name like '%" + searchInput + "%' order by messages.msg_id desc limit " + (limit * maxLimit) + ", " + maxLimit;
 
 //        System.out.println(sql + " *********************");
         if (db.getConn() != null) {
@@ -71,6 +71,7 @@ public class ServerMessage {
     }
 
     public String getAllRecords(int limit) {
+        db = new Database();
         String flag;
 
         int limitRate = 15;
@@ -114,6 +115,7 @@ public class ServerMessage {
     }
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 

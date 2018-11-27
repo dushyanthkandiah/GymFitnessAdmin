@@ -13,11 +13,11 @@ public class ServerCustomer {
     private ArrayList<ClassCustomers> list;
 
     public ServerCustomer() {
-        db = new Database();
         classCustomers = new ClassCustomers();
     }
 
     public String getAllRecords(String searchInput, int limit, String orderBy) {
+        db = new Database();
         String flag;
         int maxLimit = 8;
 
@@ -71,6 +71,7 @@ public class ServerCustomer {
 
 
     public String getAllRecords() {
+        db = new Database();
         String flag;
 
         String sql = "select cus_id, name from customers where status != 'delete'";
@@ -112,6 +113,7 @@ public class ServerCustomer {
 
 
     public String Search() {
+        db = new Database();
         String flag;
 
         String sql = "select * from customers where email = '" + classCustomers.getEmail() + "' and status != 'delete'";
@@ -154,6 +156,7 @@ public class ServerCustomer {
     }
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -198,6 +201,7 @@ public class ServerCustomer {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
 
 
@@ -239,6 +243,7 @@ public class ServerCustomer {
     }
 
     public String getBlockStatus() {
+        db = new Database();
         String flag;
 
         String sql = "select status from customers where cus_id = '" + classCustomers.getId() + "'";
@@ -268,6 +273,7 @@ public class ServerCustomer {
     }
 
     public int EnableDisableCustomer() {
+        db = new Database();
         int result = 0;
 
         PreparedStatement st = db.executeUpdate("UPDATE customers SET " +

@@ -9,12 +9,16 @@ import java.sql.Statement;
 
 
 public class Database {
-    //    public static String connectionString = "jdbc:mysql://den1.mysql1.gear.host/gymfitness";
-    public static final String db_user = "dushyanth_exclusive";
+
+    //    public static String connectionString = "jdbc:mysql://den1.mysql5.gear.host/gymfitness";
+    public static String connectionString = "jdbc:mysql://den1.mysql6.gear.host/gymfitness";
+    //    public static final String db_user = "dushyanth_exclusive";
+    public static final String db_user = "gymfitness";
+
     public static final String db_pass = "dushyanth@123";
     public static final String DRIVER = "com.mysql.jdbc.Driver";
-    public static String connectionString = "jdbc:mysql://192.168.1.250:3306/gymfitness";
-//    public static final String db_user = "gymfitness";
+
+
     private static Connection conn = null;
     private static Statement st = null;
 

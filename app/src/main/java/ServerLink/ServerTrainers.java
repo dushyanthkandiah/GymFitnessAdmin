@@ -15,12 +15,12 @@ public class ServerTrainers {
     private ArrayList<ClassTrainers> list;
 
     public ServerTrainers() {
-        db = new Database();
         classTrainers = new ClassTrainers();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput, int limit) {
+        db = new Database();
         String flag;
 
         String sql = "select * from trainers where status = 'active' and CONCAT(train_id, name, phone) like '%" + searchInput + "%' and shd_id = " + classTrainers.getSchdId() + " limit " + (limit * 10) + ", 10";
@@ -69,6 +69,7 @@ public class ServerTrainers {
     }
 
     public String getAllRecords() {
+        db = new Database();
         String flag;
 
         String sql = "select train_id, name from trainers where status = 'active'";
@@ -109,6 +110,7 @@ public class ServerTrainers {
     }
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -146,6 +148,7 @@ public class ServerTrainers {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
 
 
@@ -185,6 +188,7 @@ public class ServerTrainers {
     }
 
     public int Delete() {
+        db = new Database();
         int result = 0;
 
 

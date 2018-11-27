@@ -14,12 +14,12 @@ public class ServerSupplements {
     private ArrayList<ClassSupplement> list;
 
     public ServerSupplements() {
-        db = new Database();
         classSupplement = new ClassSupplement();
         list = new ArrayList<>();
     }
 
     public String getAllRecords(String searchInput, int limit) {
+        db = new Database();
         String flag;
 
         String sql = "select * from supplements_and_products where CONCAT(`sup&prd_id`, name, type) like '%" + searchInput + "%' limit " + (limit * 20) + ", 20";
@@ -60,6 +60,7 @@ public class ServerSupplements {
     }
 
     public String getAllRecords(String searchInput) {
+        db = new Database();
         String flag;
 
         String sql = "select * from supplements_and_products where CONCAT(`sup&prd_id`, name) like '%" + searchInput + "%' limit 0, 200";
@@ -102,6 +103,7 @@ public class ServerSupplements {
     }
 
     public int Save() {
+        db = new Database();
         int result = 0;
         PreparedStatement st;
 
@@ -131,6 +133,7 @@ public class ServerSupplements {
     }
 
     public int Update() {
+        db = new Database();
         int result = 0;
 
 
@@ -162,6 +165,7 @@ public class ServerSupplements {
     }
 
     public String isStockValid() {
+        db = new Database();
         String flag;
 
         String sql = "select name from supplements_and_products where stock >= " + classSupplement.getStock() + " and `sup&prd_id` = " + classSupplement.getId();
@@ -195,6 +199,7 @@ public class ServerSupplements {
 
 
     public int ReduceStock() {
+        db = new Database();
         int result = 0;
 
         PreparedStatement st = db.executeUpdate("UPDATE supplements_and_products SET " +
