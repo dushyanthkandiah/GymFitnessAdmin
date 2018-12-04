@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             progressBar.setVisibility(View.INVISIBLE);
 
-
             if (username.equals("admin") && password.equals("admin")) {
 
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -78,9 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
                 finish();
 
-            } else
+            } else {
                 ShowDialog.showToast(getApplicationContext(), "Please check your Email/Password");
-
+            }
 
         }
     }
