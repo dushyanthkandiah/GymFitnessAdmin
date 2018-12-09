@@ -73,10 +73,6 @@ public class ServerBilling {
         return flag;
     }
 
-
-
-
-
     public int Save() {
         db = new Database();
         int result = 0;

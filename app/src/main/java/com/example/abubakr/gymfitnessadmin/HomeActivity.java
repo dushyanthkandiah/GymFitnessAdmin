@@ -136,11 +136,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             if (SessionData.currentFragment.equals("messages"))
                 fragmentCustomerSupport.SwitchFragments("customer", 0, "", null);
-else
-            super.onBackPressed();
+            else
+                super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -226,7 +225,7 @@ else
             ft.commit();
             imgAddBtn.setVisibility(View.GONE);
 
-        }else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             SessionData.clearAll();
             startActivity(new Intent(this, LoginActivity.class));
             overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);

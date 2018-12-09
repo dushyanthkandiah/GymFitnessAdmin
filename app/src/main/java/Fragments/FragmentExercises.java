@@ -122,7 +122,7 @@ public class FragmentExercises extends Fragment implements SwipeRefreshLayout.On
         }, 1000);
     }
 
-    private class PopulateList extends AsyncTask<Void, Void, Void> {
+        private class PopulateList extends AsyncTask<Void, Void, Void> {
 
         private String result = "";
 
